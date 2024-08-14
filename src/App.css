@@ -19,3 +19,29 @@ body {
   padding: 1rem;
   width: 100%;
 }
+
+.contact-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.contact-input-label {
+  color: aquamarine;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: -0.1rem 0.4rem;
+}
+
+.contact-input-wrapper input {
+  background-color: rgba(104, 104, 104, 0.242);
+  border: none;
+  height: 1.5rem;
+  border-radius: 10px;
+  padding: 2px 10px;
+  width: 80%;
+}
+
+.header2 {
+  color: rgb(234, 255, 42);
+}
