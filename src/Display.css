@@ -1,0 +1,13 @@
+.contact-left {
+  color: var(--white-bg);
+  background-color: var(--dark-blue);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resume-name {
+  font-size: 2rem;
+  font-weight: 900;
+}

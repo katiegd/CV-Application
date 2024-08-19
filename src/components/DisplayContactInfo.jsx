@@ -1,9 +1,19 @@
+import "../Display.css";
 function DisplayOutput({ formData }) {
   return (
     <>
-      <h3>{formData.firstName}</h3>
-      <h3>{formData.lastName}</h3>
-      <h3>{formData.email}</h3>
+      <div className="contact-left">
+        <p className="resume-name">
+          {formData.firstName} {formData.lastName}
+        </p>
+        <div className="contact-info">
+          <p className="resume-email-phone">{formData.email}</p>
+          <p className="resume-email-phone">{formData.phone}</p>
+          <p className="resume-address">
+            {formData.city}, {formData.state} {formData.zip}
+          </p>
+        </div>
+      </div>
     </>
   );
 }

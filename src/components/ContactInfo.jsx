@@ -24,12 +24,7 @@ function ContactInfo({ formData, handleChange }) {
       type: "tel",
       display: "Phone: ",
     },
-    {
-      name: "street",
-      id: crypto.randomUUID(),
-      type: "text",
-      display: "Address: ",
-    },
+
     {
       name: "city",
       id: crypto.randomUUID(),
@@ -48,17 +43,10 @@ function ContactInfo({ formData, handleChange }) {
       type: "number",
       display: "ZIP: ",
     },
-    {
-      name: "country",
-      id: crypto.randomUUID(),
-      type: "text",
-      display: "Country: ",
-    },
   ];
 
   return (
     <>
-      <h2 className="header2 contact-info">Contact Information:</h2>
       <form className="contact-inputs">
         {inputFields.map((field) => (
           <div
