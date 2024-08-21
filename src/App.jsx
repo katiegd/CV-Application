@@ -5,6 +5,7 @@ import Skills from "./components/Skills";
 import ToggleSection from "./components/ToggleSection";
 import DisplayContactInfo from "./components/DisplayContactInfo";
 import Education from "./components/Education";
+import ProfessionalExp from "./components/ProfessionalExp";
 
 export default function App() {
   // For Contact Form //
@@ -18,7 +19,7 @@ export default function App() {
     zip: "00090",
   });
 
-  const [contactInfoVisible, setContactInfoVisible] = useState(true);
+  const [contactInfoVisible, setContactInfoVisible] = useState(false);
 
   function toggleContactInfo() {
     setContactInfoVisible((contactInfoVisible) => !contactInfoVisible);
@@ -32,13 +33,15 @@ export default function App() {
     }));
   }
 
-  // For EDU Form //
-  const [eduInfoVisible, setEduInfoVisible] = useState(false);
+  // For Professional Experience Form //
+  const [isProfExVisible, setIsProfExVisible] = useState(true);
 
-  function toggleEduInfo() {
-    setEduInfoVisible((eduInfoVisible) => !eduInfoVisible);
+  function toggleProfEx() {
+    setIsProfExVisible((isProfExVisible) => !isProfExVisible);
   }
 
+  // For EDU Form //
+  const [eduInfoVisible, setEduInfoVisible] = useState(false);
   const [eduInput, setEduInput] = useState({
     degree: "B.A. Mathematics",
     institution: "University of North Carolina at Chapel Hill",
@@ -46,6 +49,12 @@ export default function App() {
     startDate: "2008-08",
     endDate: "2012-05",
   });
+  const [eduIsEditing, setEduIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null);
+
+  function toggleEduInfo() {
+    setEduInfoVisible((eduInfoVisible) => !eduInfoVisible);
+  }
 
   function handleEduChange(e) {
     const { name, value } = e.target;
@@ -61,18 +70,44 @@ export default function App() {
   function addEducation(e) {
     e.preventDefault();
 
-    setEduList((prevEduList) => [
-      ...prevEduList,
-      { ...eduInput, id: crypto.randomUUID() },
-    ]);
+    if (eduIsEditing) {
+      setEduList((prevEduList) =>
+        prevEduList.map((edu) => (edu.id ? { ...eduInput, id: editId } : edu))
+      );
+      setEduIsEditing(false);
+      setEditId(null);
+      setEduInput({
+        degree: "",
+        institution: "",
+        cityState: "",
+        startDate: "",
+        endDate: "",
+      });
+    } else {
+      setEduList((prevEduList) => [
+        ...prevEduList,
+        { ...eduInput, id: crypto.randomUUID() },
+      ]);
 
-    setEduInput({
-      degree: "",
-      institution: "",
-      cityState: "",
-      startDate: "",
-      endDate: "",
-    });
+      setEduInput({
+        degree: "",
+        institution: "",
+        cityState: "",
+        startDate: "",
+        endDate: "",
+      });
+    }
+  }
+
+  function editEdu(id, e) {
+    e.preventDefault();
+    const eduToEdit = eduList.find((edu) => edu.id === id);
+
+    if (eduToEdit) {
+      setEduInput(eduToEdit);
+      setEduIsEditing(true);
+      setEditId(id);
+    }
   }
 
   function removeEdu(id) {
@@ -88,11 +123,6 @@ export default function App() {
 
   // For Skills Form //
   const [skillsVisible, setSkillsVisible] = useState(false);
-
-  function toggleSkills() {
-    setSkillsVisible((skillsVisible) => !skillsVisible);
-  }
-
   const [skillInput, setSkillInput] = useState("");
   const [skillsList, setSkillsList] = useState([
     { name: "React.js", id: crypto.randomUUID() },
@@ -102,6 +132,12 @@ export default function App() {
     { name: "Webpack", id: crypto.randomUUID() },
     { name: "Vite", id: crypto.randomUUID() },
   ]);
+  const [isSkillEditing, setIsSkillEditing] = useState(false);
+  const [skillId, setSkillId] = useState(null);
+
+  function toggleSkills() {
+    setSkillsVisible((skillsVisible) => !skillsVisible);
+  }
 
   function handleSkillChange(e) {
     setSkillInput(e.target.value);
@@ -109,7 +145,16 @@ export default function App() {
 
   function addNewSkill(e) {
     e.preventDefault();
-    if (skillInput.trim() !== "") {
+
+    if (isSkillEditing) {
+      setSkillsList((prevSkills) =>
+        prevSkills.map((skill) =>
+          skill.id === skillId ? { ...skill, name: skillInput.trim() } : skill
+        )
+      );
+      setSkillId(null);
+      setIsSkillEditing(false);
+    } else if (skillInput.trim() !== "") {
       setSkillsList((currentSkills) => [
         ...currentSkills,
         { name: skillInput.trim(), id: crypto.randomUUID() },
@@ -118,7 +163,23 @@ export default function App() {
     setSkillInput("");
   }
 
-  function removeSkill(id) {
+  function editSkill(id, e) {
+    e.preventDefault();
+    const skillToEdit = skillsList.find((skill) => skill.id === id);
+    if (skillToEdit) {
+      setIsSkillEditing(true);
+      setSkillId(id);
+      setSkillInput(skillToEdit.name);
+    }
+  }
+
+  function removeSkill(id, e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (skillId === id) {
+      setSkillInput("");
+    }
     setSkillsList((prevSkills) =>
       prevSkills.filter((skill) => skill.id !== id)
     );
@@ -131,7 +192,6 @@ export default function App() {
         <div className="forms-wrapper">
           <ToggleSection
             title="Contact Information: "
-            className="contact-info"
             isVisible={contactInfoVisible}
             toggleVisibility={toggleContactInfo}
           >
@@ -141,8 +201,14 @@ export default function App() {
             />
           </ToggleSection>
           <ToggleSection
+            title="Professional Experience: "
+            isVisible={isProfExVisible}
+            toggleVisibility={toggleProfEx}
+          >
+            <ProfessionalExp />
+          </ToggleSection>
+          <ToggleSection
             title="Education: "
-            className="education-info"
             isVisible={eduInfoVisible}
             toggleVisibility={toggleEduInfo}
           >
@@ -152,6 +218,8 @@ export default function App() {
               eduList={eduList}
               eduInput={eduInput}
               addEducation={addEducation}
+              editEdu={editEdu}
+              eduIsEditing={eduIsEditing}
             />
           </ToggleSection>
           <ToggleSection
@@ -166,6 +234,8 @@ export default function App() {
               handleSkillChange={handleSkillChange}
               addNewSkill={addNewSkill}
               removeSkill={removeSkill}
+              editSkill={editSkill}
+              isSkillEditing={isSkillEditing}
             />
           </ToggleSection>
         </div>{" "}

@@ -4,6 +4,8 @@ export default function Education({
   addEducation,
   eduInput,
   removeEdu,
+  editEdu,
+  eduIsEditing,
 }) {
   function formatDate(date) {
     const [year, month] = date.split("-");
@@ -63,19 +65,37 @@ export default function Education({
           </div>
         ))}
         <button className="add-btn" onClick={addEducation}>
-          Add
+          {eduIsEditing ? "Update" : "Add"}
         </button>
         <div className="edu-container">
           {eduList.map((edu) => (
             <div className="edu-item" id={edu.id} key={edu.id}>
               <span className="edu-degree-delete-btn">
                 <p className="edu-degree edu-entry">{edu.degree}</p>
-                <button
-                  className="remove-btn"
-                  onClick={() => removeEdu(edu.id)}
-                >
-                  x
-                </button>
+                <div className="edit-remove-btns">
+                  <button
+                    className="edit-btn"
+                    onClick={(e) => editEdu(edu.id, e)}
+                  >
+                    <img
+                      src="src/assets/edit-3-svgrepo-com.svg"
+                      alt="close"
+                      width="15px"
+                      height="15px"
+                    />
+                  </button>
+                  <button
+                    className="remove-btn"
+                    onClick={() => removeEdu(edu.id)}
+                  >
+                    <img
+                      src="src/assets/close-svgrepo-com.svg"
+                      alt="close"
+                      width="15px"
+                      height="15px"
+                    />
+                  </button>
+                </div>
               </span>
               <p className="edu-institution edu-entry">{edu.institution}</p>
               <p className="edu-city-state edu-entry">{edu.cityState}</p>

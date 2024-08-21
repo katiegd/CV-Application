@@ -97,7 +97,8 @@ body {
 
 .contact-inputs,
 .education-inputs,
-.skills-inputs {
+.skills-inputs,
+.prof-exp-inputs {
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -145,7 +146,13 @@ body {
   border-radius: 10px;
 }
 
-.remove-btn {
+.edit-remove-btns {
+  display: flex;
+  gap: 3px;
+}
+
+.remove-btn,
+.edit-btn {
   font-size: 1rem;
   font-weight: 700;
   display: flex;
@@ -153,14 +160,13 @@ body {
   color: var(--white-bg);
   background-color: var(--dark-blue);
   border: none;
-  padding: 3px 8px;
-  width: auto;
-  height: auto;
   border-radius: 5px;
+  padding: 3px 3px;
 }
 
 .add-skill-btn:hover,
-.remove-btn:hover {
+.remove-btn:hover,
+.edit-btn:hover {
   background-color: var(--med-green);
   cursor: pointer;
 }
@@ -199,6 +205,11 @@ body {
   z-index: 1;
 }
 
+.collapsible-input:hover {
+  background-color: hsl(158, 96%, 38%);
+  cursor: pointer;
+}
+
 .skills-input {
   background-color: var(--med-green);
 }
@@ -215,8 +226,13 @@ body {
   gap: 20px;
 }
 
+.skill-list-item:hover {
+  background-color: hsl(231, 36%, 50%);
+  cursor: pointer;
+}
+
 .skill-name {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .skills-container {
@@ -290,4 +306,16 @@ body {
 .edu-degree-delete-btn {
   display: flex;
   justify-content: space-between;
+}
+
+.profSummary textarea {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  height: 100px;
+  resize: vertical;
+  background-color: #2230591e;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.094);
+  border: none;
+  border-radius: 10px;
+  padding: 2px 10px;
 }

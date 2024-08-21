@@ -9,11 +9,9 @@ export default function ToggleSection({
 
   return (
     <div className="section-wrapper">
-      <p className="header2 collapsible-input">
+      <p className="header2 collapsible-input" onClick={toggleVisibility}>
         {title}
-        <button className="expand-button" onClick={toggleVisibility}>
-          {isVisible ? "-" : "+"}
-        </button>
+        <button className="expand-button">{isVisible ? "-" : "+"}</button>
       </p>
       <div className={toggleClass}>{children}</div>
     </div>
