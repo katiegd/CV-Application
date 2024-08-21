@@ -179,6 +179,7 @@ export default function App() {
 
     if (skillId === id) {
       setSkillInput("");
+      setIsSkillEditing(false);
     }
     setSkillsList((prevSkills) =>
       prevSkills.filter((skill) => skill.id !== id)
