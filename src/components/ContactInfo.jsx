@@ -49,15 +49,8 @@ function ContactInfo({ formData, handleChange }) {
     <>
       <form className="contact-inputs">
         {inputFields.map((field) => (
-          <div
-            key={field.name}
-            className={`contact-input-wrapper ${field.name}`}
-          >
-            <label
-              key={field.id}
-              htmlFor={field.name}
-              className="contact-input-label"
-            >
+          <div key={field.name} className={`input-wrapper ${field.name}`}>
+            <label key={field.id} htmlFor={field.name} className="input-label">
               {field.display}
             </label>
             <input

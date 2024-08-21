@@ -5,15 +5,17 @@ export default function ToggleSection({
   toggleVisibility,
   children,
 }) {
+  const toggleClass = `${className} ${isVisible ? "visible" : "hidden"}`;
+
   return (
-    <div className={title}>
+    <div className="section-wrapper">
       <p className="header2 collapsible-input">
         {title}
         <button className="expand-button" onClick={toggleVisibility}>
           {isVisible ? "-" : "+"}
         </button>
       </p>
-      {isVisible && <div className={className}>{children}</div>}
+      <div className={toggleClass}>{children}</div>
     </div>
   );
 }

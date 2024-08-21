@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function Skills({
   skillsList,
   skillInput,
@@ -16,7 +14,7 @@ export default function Skills({
           onChange={handleSkillChange}
           className="skills-input"
         ></input>
-        <button onClick={addNewSkill} className="add-skill-btn">
+        <button onClick={addNewSkill} className="add-btn">
           Add
         </button>
       </div>
@@ -27,7 +25,7 @@ export default function Skills({
             <p className="skill-name">{skill.name}</p>
             <button
               id={skill.id}
-              className="remove-skill-btn"
+              className="remove-btn"
               onClick={() => removeSkill(skill.id)}
             >
               x
