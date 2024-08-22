@@ -68,8 +68,17 @@ export default function App() {
   const [eduList, setEduList] = useState([]);
 
   function addEducation(e) {
-    e.preventDefault();
+    e.preventDefault;
 
+    if (
+      !eduInput.degree.trim() ||
+      !eduInput.institution.trim() ||
+      !eduInput.cityState.trim() ||
+      !eduInput.startDate.trim() ||
+      !eduInput.endDate.trim()
+    ) {
+      return;
+    }
     if (eduIsEditing) {
       setEduList((prevEduList) =>
         prevEduList.map((edu) => (edu.id ? { ...eduInput, id: editId } : edu))

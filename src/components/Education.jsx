@@ -61,11 +61,12 @@ export default function Education({
               id={field.id}
               onChange={handleChange}
               value={eduInput[field.name]}
+              required
             />
           </div>
         ))}
         <button className="add-btn" onClick={addEducation}>
-          {eduIsEditing ? "Update" : "Add"}
+          {eduIsEditing ? "Update" : "Add Education"}
         </button>
         <div className="edu-container">
           {eduList.map((edu) => (
