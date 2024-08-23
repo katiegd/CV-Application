@@ -1,16 +1,70 @@
 import { useState } from "react";
 
+const profSummary = {
+  name: "profSummary",
+  id: crypto.randomUUID(),
+  type: "textarea",
+  display: "Professional Summary: ",
+};
+
+const bulletPoints = {
+  name: "bulletPoints",
+  id: crypto.randomUUID(),
+  type: "text",
+  display: "Job Responsibilities: ",
+};
+
+const profInputFields = [
+  {
+    name: "jobTitle",
+    id: crypto.randomUUID(),
+    type: "text",
+    display: "Job Title: ",
+  },
+  {
+    name: "company",
+    id: crypto.randomUUID(),
+    type: "text",
+    display: "Company: ",
+  },
+  {
+    name: "location",
+    id: crypto.randomUUID(),
+    type: "text",
+    display: "Location: ",
+  },
+  {
+    name: "startDate",
+    id: crypto.randomUUID(),
+    type: "month",
+    display: "Start Date: ",
+  },
+  {
+    name: "endDate",
+    id: crypto.randomUUID(),
+    type: "month",
+    display: "End Date: ",
+  },
+];
+
 export default function ProfessionalExp() {
   const [profExInput, setProfExInput] = useState({
-    profSummary:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque, voluptatem odio voluptate in omnis sapiente aspernatur nam fugiat unde consequuntur cumque dicta suscipit provident maxime excepturi labore quibusdam dolor. Nobis?",
     jobTitle: "Full Stack Developer",
-    company: "Very Good Building",
+    company: "Very Good Coding",
     location: "Durham, NC",
+    startDate: "2008-09",
+    endDate: "2017-10",
   });
+  const [professionalSum, setProfessionalSum] = useState(
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor doloribus et officiis odit architecto delectus possimus non reiciendis earum, corporis animi. Quam et nostrum maxime! Asperiores officiis cumque reprehenderit sed."
+  );
   const [profExList, setProfExList] = useState([]);
   const [bulletPoint, setBulletPoint] = useState("");
   const [bulletPointList, setBulletPointList] = useState([]);
+
+  function handleProfessionalSum(e) {
+    setProfessionalSum(e.target.value);
+  }
 
   function handleProfExChange(e) {
     const { name, value } = e.target;
@@ -28,10 +82,73 @@ export default function ProfessionalExp() {
   function addProfExp(e) {
     e.preventDefault();
 
+    if (
+      profExInput.jobTitle.trim() === "" ||
+      profExInput.company.trim() === "" ||
+      profExInput.location.trim() === "" ||
+      profExInput.startDate.trim() === "" ||
+      profExInput.endDate.trim() === ""
+    ) {
+      return;
+    }
+
     setProfExList((prevExList) => [
       ...prevExList,
-      { ...profExInput, id: crypto.randomUUID() },
+      {
+        ...profExInput,
+        bulletPoints: bulletPointList,
+        id: crypto.randomUUID(),
+      },
     ]);
+    setProfExInput({
+      jobTitle: "",
+      company: "",
+      location: "",
+      startDate: "",
+      endDate: "",
+    });
+    setBulletPointList([]);
+  }
+
+  function removeProfEx(id) {
+    setProfExList((prevProfExList) =>
+      prevProfExList.filter((list) => list.id !== id)
+    );
+
+    setProfExInput({
+      jobTitle: "",
+      company: "",
+      location: "",
+      startDate: "",
+      endDate: "",
+    });
+
+    setBulletPoint("");
+    setBulletPointList([]);
+  }
+
+  function addBulletPoint(e) {
+    e.preventDefault();
+
+    if (bulletPoint.trim() === "") {
+      return;
+    }
+
+    setBulletPointList((prevBulletPointList) => [
+      ...prevBulletPointList,
+      { text: bulletPoint.trim(), id: crypto.randomUUID() },
+    ]);
+
+    setBulletPoint("");
+  }
+
+  function removeBullet(id, e) {
+    e.preventDefault();
+
+    setBulletPointList((prevBulletPointList) =>
+      prevBulletPointList.filter((bullet) => bullet.id !== id)
+    );
+    setBulletPoint("");
   }
 
   function formatDate(date) {
@@ -40,71 +157,17 @@ export default function ProfessionalExp() {
     return `${month}/${year}`;
   }
 
-  const profSummary = {
-    name: "profSummary",
-    id: crypto.randomUUID(),
-    type: "textarea",
-    display: "Professional Summary: ",
-  };
-
-  const bulletPoints = {
-    name: "bulletPoints",
-    id: crypto.randomUUID(),
-    type: "text",
-    display: "Job Responsibilities: ",
-  };
-
-  const profInputFields = [
-    {
-      name: "jobTitle",
-      id: crypto.randomUUID(),
-      type: "text",
-      display: "Job Title: ",
-    },
-    {
-      name: "company",
-      id: crypto.randomUUID(),
-      type: "text",
-      display: "Company: ",
-    },
-    {
-      name: "location",
-      id: crypto.randomUUID(),
-      type: "text",
-      display: "Location: ",
-    },
-    {
-      name: "startDate",
-      id: crypto.randomUUID(),
-      type: "month",
-      display: "Start Date: ",
-    },
-    {
-      name: "endDate",
-      id: crypto.randomUUID(),
-      type: "month",
-      display: "End Date: ",
-    },
-  ];
-
   return (
     <>
       <form className="prof-exp-inputs">
-        <div
-          key={profSummary.id}
-          className={`input-wrapper ${profSummary.name}`}
-        >
-          <label
-            key={profSummary.id}
-            htmlFor={profSummary.name}
-            className="input-label"
-          >
-            {profSummary.display}
-          </label>{" "}
+        <div className={`input-wrapper ${profSummary.name}`}>
+          <label className="input-label">{profSummary.display}</label>{" "}
           <textarea
-            className={profSummary.name}
+            className="profSummary"
             id={profSummary.id}
-            value={profExInput[profSummary.name]}
+            value={professionalSum}
+            onChange={handleProfessionalSum}
+            required
           ></textarea>{" "}
         </div>
         <hr />
@@ -117,10 +180,9 @@ export default function ProfessionalExp() {
               type={field.type}
               name={field.name}
               id={field.id}
-              onChange={() => {
-                handleProfExChange(e);
-              }}
+              onChange={handleProfExChange}
               value={profExInput[field.name]}
+              required
             />
           </div>
         ))}
@@ -129,12 +191,38 @@ export default function ProfessionalExp() {
             {bulletPoints.display}
           </label>
           <div className="bullet-point-wrapper">
-            <input type={bulletPoints.type}></input>{" "}
-            <button className="add-btn">Add</button>
+            <input
+              type={bulletPoints.type}
+              onChange={handleBulletPointChange}
+              value={bulletPoint}
+            ></input>{" "}
+            <button className="add-btn" onClick={addBulletPoint}>
+              Add
+            </button>
           </div>
+          <div className="bullet-point-container">
+            {bulletPointList.map((bullet) => (
+              <div key={bullet.id} className="bullet-point-entry">
+                <span className="bullet-text">{bullet.text} </span>
+                <button
+                  className="remove-btn"
+                  onClick={(e) => removeBullet(bullet.id, e)}
+                >
+                  <img
+                    src="src/assets/close-svgrepo-com.svg"
+                    alt="close"
+                    width="15px"
+                    height="15px"
+                  />
+                </button>
+              </div>
+            ))}
+          </div>
+          <hr />
+
           <button
             className="add-btn"
-            onClick={() => {
+            onClick={(e) => {
               addProfExp(e);
             }}
           >
@@ -145,7 +233,7 @@ export default function ProfessionalExp() {
           {profExList.map((profEx) => (
             <div className="profEx-item" id={profEx.id} key={profEx.id}>
               <span className="edu-degree-delete-btn">
-                <p className="edu-degree edu-entry">{profEx.degree}</p>
+                <p className="edu-degree edu-entry">{profEx.jobTitle}</p>
                 <div className="edit-remove-btns">
                   <button
                     className="edit-btn"
@@ -160,7 +248,7 @@ export default function ProfessionalExp() {
                   </button>
                   <button
                     className="remove-btn"
-                    // onClick={() => removeEdu(edu.id)}
+                    onClick={() => removeProfEx(profEx.id)}
                   >
                     <img
                       src="src/assets/close-svgrepo-com.svg"
@@ -171,14 +259,28 @@ export default function ProfessionalExp() {
                   </button>
                 </div>
               </span>
-              <p className="edu-institution edu-entry">{profEx.institution}</p>
-              <p className="edu-city-state edu-entry">{profEx.cityState}</p>
-              <p className="edu-start-end edu-entry">
-                <span className="edu-start">
+              <p className="profEx-company profEx-entry">{profEx.company}</p>
+              <p className="profEx-location profEx-entry">
+                {profEx.location}
+              </p>{" "}
+              {profEx.bulletPoints.length > 0 ? (
+                <div className="profEx-responsibilities">
+                  {" "}
+                  <ul>
+                    {profEx.bulletPoints.map((bullet) => (
+                      <li key={bullet.id}>{bullet.text}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                ""
+              )}{" "}
+              <p className="profEx-start-end profEx-entry">
+                <span className="profEx-start">
                   Start: {formatDate(profEx.startDate)}
                 </span>
 
-                <span className="edu-end">
+                <span className="profEx-end">
                   End: {formatDate(profEx.endDate)}
                 </span>
               </p>

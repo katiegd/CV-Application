@@ -1,6 +1,6 @@
 .contact-left {
   color: var(--white-bg);
-  background-color: var(--dark-blue);
+  background-color: var(--med-blue);
   padding: 30px;
   display: flex;
   flex-direction: column;

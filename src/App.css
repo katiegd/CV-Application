@@ -23,7 +23,7 @@ body {
 }
 
 hr {
-  width: 90%;
+  width: 100%;
   opacity: 30%;
 }
 
@@ -172,6 +172,7 @@ hr {
   border: none;
   border-radius: 5px;
   padding: 3px 3px;
+  max-height: 20px;
 }
 
 .add-skill-btn:hover,
@@ -269,43 +270,60 @@ hr {
   cursor: pointer;
 }
 
-.edu-container {
+.edu-container,
+.profEx-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.edu-item {
+.edu-item,
+.profEx-item {
   padding: 10px 15px;
   background-color: #2230591e;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  line-height: 1.3rem;
+  line-height: 1rem;
+  gap: 5px;
 }
 
-.edu-degree {
+.profEx-responsibilities {
+  font-size: 0.8rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fefefe;
+  border-radius: 10px;
+}
+
+.edu-degree,
+.profEx-title {
   font-weight: 800;
   font-size: 1.2rem;
 }
 
 .edu-institution,
-.edu-city-state {
+.edu-city-state,
+.profEx-entry {
   font-size: 0.8rem;
 }
 
-.edu-start-end {
+.edu-start-end,
+.profEx-start-end {
   font-size: 0.8rem;
   display: flex;
   justify-content: space-between;
 }
 
-.edu-entry {
+.edu-entry,
+.profEx-entry {
   margin: 0;
 }
 
 .edu-start,
-.edu-end {
+.edu-end,
+.profEx-start,
+.profEx-end {
   font-weight: 800;
   color: var(--white-bg);
   background-color: var(--dark-blue);
@@ -338,4 +356,27 @@ hr {
 
 .bullet-point-wrapper input {
   flex: 1;
+}
+
+.bullet-point-container {
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.bullet-point-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white-bg);
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+.bullet-point-entry:hover {
+  background-color: var(--med-blue);
+  color: var(--white-bg);
+  cursor: pointer;
 }
