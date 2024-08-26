@@ -40,6 +40,144 @@ export default function App() {
     setIsProfExVisible((isProfExVisible) => !isProfExVisible);
   }
 
+  const [profExInput, setProfExInput] = useState({
+    jobTitle: "Full Stack Developer",
+    company: "Very Good Coding",
+    location: "Durham, NC",
+    startDate: "2008-09",
+    endDate: "2017-10",
+  });
+  const [professionalSum, setProfessionalSum] = useState(
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor doloribus et officiis odit architecto delectus possimus non reiciendis earum, corporis animi. Quam et nostrum maxime! Asperiores officiis cumque reprehenderit sed."
+  );
+  const [profExList, setProfExList] = useState([]);
+  const [bulletPoint, setBulletPoint] = useState("");
+  const [bulletPointList, setBulletPointList] = useState([]);
+  const [isProfExEditing, setisProfExEditing] = useState(false);
+  const [profExId, setProfExId] = useState(null);
+
+  function handleProfessionalSum(e) {
+    setProfessionalSum(e.target.value);
+  }
+
+  function handleProfExChange(e) {
+    const { name, value } = e.target;
+
+    setProfExInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  }
+
+  function handleBulletPointChange(e) {
+    setBulletPoint(e.target.value);
+  }
+
+  function addProfExp(e) {
+    e.preventDefault();
+
+    if (
+      profExInput.jobTitle.trim() === "" ||
+      profExInput.company.trim() === "" ||
+      profExInput.location.trim() === "" ||
+      profExInput.startDate.trim() === "" ||
+      profExInput.endDate.trim() === ""
+    ) {
+      return;
+    } else if (isProfExEditing) {
+      setProfExList((prevProfExList) =>
+        prevProfExList.map((profEx) =>
+          profEx.id
+            ? { ...profExInput, bulletPoints: bulletPointList, id: profExId }
+            : profEx
+        )
+      );
+      setisProfExEditing(false);
+      setProfExId(null);
+      setProfExInput({
+        jobTitle: "",
+        company: "",
+        location: "",
+        startDate: "",
+        endDate: "",
+      });
+      setBulletPointList([]);
+    } else {
+      setProfExList((prevExList) => [
+        ...prevExList,
+        {
+          ...profExInput,
+          bulletPoints: bulletPointList,
+          id: crypto.randomUUID(),
+        },
+      ]);
+      setProfExInput({
+        jobTitle: "",
+        company: "",
+        location: "",
+        startDate: "",
+        endDate: "",
+      });
+      setBulletPointList([]);
+    }
+  }
+
+  function editProfEx(id, e) {
+    e.preventDefault();
+
+    const profExToEdit = profExList.find((profEx) => profEx.id === id);
+
+    console.log(profExToEdit);
+
+    if (profExToEdit) {
+      setisProfExEditing(true);
+      setProfExInput(profExToEdit);
+      setBulletPointList(profExToEdit.bulletPoints);
+      setProfExId(id);
+    }
+  }
+
+  function removeProfEx(id) {
+    setProfExList((prevProfExList) =>
+      prevProfExList.filter((list) => list.id !== id)
+    );
+
+    setProfExInput({
+      jobTitle: "",
+      company: "",
+      location: "",
+      startDate: "",
+      endDate: "",
+    });
+
+    setBulletPoint("");
+    setBulletPointList([]);
+  }
+
+  function addBulletPoint(e) {
+    e.preventDefault();
+
+    if (bulletPoint.trim() === "") {
+      return;
+    }
+
+    setBulletPointList((prevBulletPointList) => [
+      ...prevBulletPointList,
+      { text: bulletPoint.trim(), id: crypto.randomUUID() },
+    ]);
+
+    setBulletPoint("");
+  }
+
+  function removeBullet(id, e) {
+    e.preventDefault();
+
+    setBulletPointList((prevBulletPointList) =>
+      prevBulletPointList.filter((bullet) => bullet.id !== id)
+    );
+    setBulletPoint("");
+  }
+
   // For EDU Form //
   const [eduInfoVisible, setEduInfoVisible] = useState(false);
   const [eduInput, setEduInput] = useState({
@@ -215,7 +353,22 @@ export default function App() {
             isVisible={isProfExVisible}
             toggleVisibility={toggleProfEx}
           >
-            <ProfessionalExp />
+            <ProfessionalExp
+              profExInput={profExInput}
+              professionalSum={professionalSum}
+              handleBulletPointChange={handleBulletPointChange}
+              handleProfExChange={handleProfExChange}
+              handleProfessionalSum={handleProfessionalSum}
+              addBulletPoint={addBulletPoint}
+              addProfExp={addProfExp}
+              removeBullet={removeBullet}
+              removeProfEx={removeProfEx}
+              editProfEx={editProfEx}
+              bulletPoint={bulletPoint}
+              bulletPointList={bulletPointList}
+              isProfExEditing={isProfExEditing}
+              profExList={profExList}
+            />
           </ToggleSection>
           <ToggleSection
             title="Education: "

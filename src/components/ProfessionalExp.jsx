@@ -47,110 +47,22 @@ const profInputFields = [
   },
 ];
 
-export default function ProfessionalExp() {
-  const [profExInput, setProfExInput] = useState({
-    jobTitle: "Full Stack Developer",
-    company: "Very Good Coding",
-    location: "Durham, NC",
-    startDate: "2008-09",
-    endDate: "2017-10",
-  });
-  const [professionalSum, setProfessionalSum] = useState(
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor doloribus et officiis odit architecto delectus possimus non reiciendis earum, corporis animi. Quam et nostrum maxime! Asperiores officiis cumque reprehenderit sed."
-  );
-  const [profExList, setProfExList] = useState([]);
-  const [bulletPoint, setBulletPoint] = useState("");
-  const [bulletPointList, setBulletPointList] = useState([]);
-
-  function handleProfessionalSum(e) {
-    setProfessionalSum(e.target.value);
-  }
-
-  function handleProfExChange(e) {
-    const { name, value } = e.target;
-
-    setProfExInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  }
-
-  function handleBulletPointChange(e) {
-    setBulletPoint(e.target.value);
-  }
-
-  function addProfExp(e) {
-    e.preventDefault();
-
-    if (
-      profExInput.jobTitle.trim() === "" ||
-      profExInput.company.trim() === "" ||
-      profExInput.location.trim() === "" ||
-      profExInput.startDate.trim() === "" ||
-      profExInput.endDate.trim() === ""
-    ) {
-      return;
-    }
-
-    setProfExList((prevExList) => [
-      ...prevExList,
-      {
-        ...profExInput,
-        bulletPoints: bulletPointList,
-        id: crypto.randomUUID(),
-      },
-    ]);
-    setProfExInput({
-      jobTitle: "",
-      company: "",
-      location: "",
-      startDate: "",
-      endDate: "",
-    });
-    setBulletPointList([]);
-  }
-
-  function removeProfEx(id) {
-    setProfExList((prevProfExList) =>
-      prevProfExList.filter((list) => list.id !== id)
-    );
-
-    setProfExInput({
-      jobTitle: "",
-      company: "",
-      location: "",
-      startDate: "",
-      endDate: "",
-    });
-
-    setBulletPoint("");
-    setBulletPointList([]);
-  }
-
-  function addBulletPoint(e) {
-    e.preventDefault();
-
-    if (bulletPoint.trim() === "") {
-      return;
-    }
-
-    setBulletPointList((prevBulletPointList) => [
-      ...prevBulletPointList,
-      { text: bulletPoint.trim(), id: crypto.randomUUID() },
-    ]);
-
-    setBulletPoint("");
-  }
-
-  function removeBullet(id, e) {
-    e.preventDefault();
-
-    setBulletPointList((prevBulletPointList) =>
-      prevBulletPointList.filter((bullet) => bullet.id !== id)
-    );
-    setBulletPoint("");
-  }
-
+export default function ProfessionalExp({
+  profExInput,
+  professionalSum,
+  handleBulletPointChange,
+  handleProfExChange,
+  handleProfessionalSum,
+  addBulletPoint,
+  addProfExp,
+  removeBullet,
+  removeProfEx,
+  editProfEx,
+  bulletPoint,
+  bulletPointList,
+  isProfExEditing,
+  profExList,
+}) {
   function formatDate(date) {
     const [year, month] = date.split("-");
 
@@ -226,7 +138,7 @@ export default function ProfessionalExp() {
               addProfExp(e);
             }}
           >
-            Add Work Experience
+            {isProfExEditing ? "Update Work Experience" : "Add Work Experience"}{" "}
           </button>
         </div>
         <div className="profEx-container">
@@ -237,7 +149,7 @@ export default function ProfessionalExp() {
                 <div className="edit-remove-btns">
                   <button
                     className="edit-btn"
-                    // onClick={(e) => editEdu(edu.id, e)}
+                    onClick={(e) => editProfEx(profEx.id, e)}
                   >
                     <img
                       src="src/assets/edit-3-svgrepo-com.svg"
