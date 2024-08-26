@@ -10,9 +10,9 @@ import ProfessionalExp from "./components/ProfessionalExp";
 export default function App() {
   // For Contact Form //
   const [contactFormData, setContactFormData] = useState({
-    firstName: "Matilda",
-    lastName: "Johnson",
-    email: "tildy@email.com",
+    firstName: "Thor",
+    lastName: "Cattison",
+    email: "snuggles@orangecat.com",
     phone: "(123) 456-7890",
     city: "Skyline",
     state: "AK",
@@ -119,6 +119,7 @@ export default function App() {
         endDate: "",
       });
       setBulletPointList([]);
+      console.log(profExList);
     }
   }
 
@@ -406,8 +407,11 @@ export default function App() {
       <div className="output-side">
         <div className="paper-container">
           <DisplayContactInfo
-            formData={contactFormData}
-            handleChange={handleContactChange}
+            contact={contactFormData}
+            education={eduList}
+            profEx={profExList}
+            skills={skillsList}
+            proSum={professionalSum}
           />
         </div>
       </div>

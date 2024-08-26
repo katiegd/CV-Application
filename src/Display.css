@@ -1,13 +1,24 @@
+.paper-container {
+  font-size: 20px;
+  background-color: rgb(255, 255, 255);
+  margin: 30px;
+  max-height: 90vh;
+  aspect-ratio: 8.5 / 11;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  box-shadow: 1px 6px 20px rgba(79, 79, 79, 0.21);
+}
+
 .contact-left {
   color: var(--white-bg);
   background-color: var(--med-blue);
   padding: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  font-size: 0.6rem;
 }
 
 .resume-name {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 900;
 }
