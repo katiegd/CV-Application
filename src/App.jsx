@@ -34,23 +34,48 @@ export default function App() {
   }
 
   // For Professional Experience Form //
-  const [isProfExVisible, setIsProfExVisible] = useState(true);
+  const [isProfExVisible, setIsProfExVisible] = useState(false);
 
   function toggleProfEx() {
     setIsProfExVisible((isProfExVisible) => !isProfExVisible);
   }
 
-  const [profExInput, setProfExInput] = useState({
-    jobTitle: "Full Stack Developer",
-    company: "Very Good Coding",
-    location: "Durham, NC",
-    startDate: "2008-09",
-    endDate: "2017-10",
-  });
+  const [profExInput, setProfExInput] = useState("");
   const [professionalSum, setProfessionalSum] = useState(
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor doloribus et officiis odit architecto delectus possimus non reiciendis earum, corporis animi. Quam et nostrum maxime! Asperiores officiis cumque reprehenderit sed."
   );
-  const [profExList, setProfExList] = useState([]);
+  const [profExList, setProfExList] = useState([
+    {
+      jobTitle: "Napping Specialist",
+      company: "Very Good Sleep",
+      location: "Charlotte, NC",
+      bulletPoints: [
+        {
+          text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec quam odio. Curabitur feugiat mi imperdiet congue vehicula. Mauris hendrerit augue augue. Maecenas efficitur lorem vitae nisi iaculis, ut scelerisque nisi aliquet. Mauris ullamcorper imperdiet efficitur.",
+        },
+        {
+          text: " Curabitur feugiat mi imperdiet congue vehicula. Mauris hendrerit augue augue. Maecenas efficitur lorem vitae nisi iaculis, ut scelerisque nisi aliquet. Mauris ullamcorper imperdiet efficitur.",
+        },
+      ],
+      startDate: "2018-09",
+      endDate: "2024-10",
+    },
+    {
+      jobTitle: "Full Stack Developer",
+      company: "Very Good Coding",
+      location: "Durham, NC",
+      bulletPoints: [
+        {
+          text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec quam odio. Curabitur feugiat mi imperdiet congue vehicula. Mauris hendrerit augue augue. Maecenas efficitur lorem vitae nisi iaculis, ut scelerisque nisi aliquet. Mauris ullamcorper imperdiet efficitur.",
+        },
+        {
+          text: " Curabitur feugiat mi imperdiet congue vehicula. Mauris hendrerit augue augue. Maecenas efficitur lorem vitae nisi iaculis, ut scelerisque nisi aliquet. Mauris ullamcorper imperdiet efficitur.",
+        },
+      ],
+      startDate: "2008-09",
+      endDate: "2017-10",
+    },
+  ]);
   const [bulletPoint, setBulletPoint] = useState("");
   const [bulletPointList, setBulletPointList] = useState([]);
   const [isProfExEditing, setisProfExEditing] = useState(false);
@@ -85,9 +110,10 @@ export default function App() {
     ) {
       return;
     } else if (isProfExEditing) {
+      console.log(profExId);
       setProfExList((prevProfExList) =>
         prevProfExList.map((profEx) =>
-          profEx.id
+          profEx.id === profExId
             ? { ...profExInput, bulletPoints: bulletPointList, id: profExId }
             : profEx
         )
@@ -128,13 +154,12 @@ export default function App() {
 
     const profExToEdit = profExList.find((profEx) => profEx.id === id);
 
-    console.log(profExToEdit);
-
+    console.log(profExToEdit.id);
     if (profExToEdit) {
       setisProfExEditing(true);
       setProfExInput(profExToEdit);
       setBulletPointList(profExToEdit.bulletPoints);
-      setProfExId(id);
+      setProfExId(profExToEdit.id);
     }
   }
 
@@ -181,13 +206,7 @@ export default function App() {
 
   // For EDU Form //
   const [eduInfoVisible, setEduInfoVisible] = useState(false);
-  const [eduInput, setEduInput] = useState({
-    degree: "B.A. Mathematics",
-    institution: "University of North Carolina at Chapel Hill",
-    cityState: "Chapel Hill, NC",
-    startDate: "2008-08",
-    endDate: "2012-05",
-  });
+  const [eduInput, setEduInput] = useState("");
   const [eduIsEditing, setEduIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
 
@@ -204,7 +223,22 @@ export default function App() {
     }));
   }
 
-  const [eduList, setEduList] = useState([]);
+  const [eduList, setEduList] = useState([
+    {
+      degree: "Doctorate in Napping",
+      institution: "Harvard University",
+      cityState: "Cambridge, MA",
+      startDate: "2012-08",
+      endDate: "2016-05",
+    },
+    {
+      degree: "B.A. Mathematics",
+      institution: "University of North Carolina at Chapel Hill",
+      cityState: "Chapel Hill, NC",
+      startDate: "2008-08",
+      endDate: "2012-05",
+    },
+  ]);
 
   function addEducation(e) {
     e.preventDefault;
@@ -220,7 +254,9 @@ export default function App() {
     }
     if (eduIsEditing) {
       setEduList((prevEduList) =>
-        prevEduList.map((edu) => (edu.id ? { ...eduInput, id: editId } : edu))
+        prevEduList.map((edu) =>
+          edu.id === editId ? { ...eduInput, id: editId } : edu
+        )
       );
       setEduIsEditing(false);
       setEditId(null);
@@ -334,6 +370,22 @@ export default function App() {
     );
   }
 
+  function clearData() {
+    setContactFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      city: "",
+      state: "",
+      zip: "",
+    });
+    setProfessionalSum("");
+    setEduList([]);
+    setProfExList([]);
+    setSkillsList([]);
+  }
+
   return (
     <div className="main-container">
       <div className="input-side">
@@ -403,6 +455,9 @@ export default function App() {
             />
           </ToggleSection>
         </div>{" "}
+        <button className="clear-data-btn" onClick={clearData}>
+          Clear All Data
+        </button>
       </div>
       <div className="output-side">
         <div className="paper-container">
