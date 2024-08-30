@@ -152,7 +152,7 @@ export default function ProfessionalExp({
                     onClick={(e) => editProfEx(profEx.id, e)}
                   >
                     <img
-                      src="src/assets/edit-3-svgrepo-com.svg"
+                      src="public/edit-3-svgrepo-com.svg"
                       alt="close"
                       width="15px"
                       height="15px"
@@ -163,7 +163,7 @@ export default function ProfessionalExp({
                     onClick={() => removeProfEx(profEx.id)}
                   >
                     <img
-                      src="src/assets/close-svgrepo-com.svg"
+                      src="public/close-svgrepo-com.svg"
                       alt="close"
                       width="15px"
                       height="15px"
