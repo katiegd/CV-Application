@@ -3,7 +3,8 @@
   --padding-scale: calc(2vh);
 }
 
-.clear-data-btn {
+.clear-data-btn,
+.download-btn {
   font-size: calc(var(--font-scale) * 1);
   padding: 1rem;
   background-color: var(--bright-green);
@@ -25,8 +26,8 @@
   background-color: rgb(255, 255, 255);
   margin: 30px auto;
   aspect-ratio: 8.5 / 11;
-  max-height: 90vh;
-  min-height: 90vh;
+  max-height: 80vh;
+  min-height: 80vh;
   display: grid;
   grid-template-columns: 1fr 2fr;
   box-shadow: 1px 6px 20px rgba(79, 79, 79, 0.21);
