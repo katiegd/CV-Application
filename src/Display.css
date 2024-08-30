@@ -16,7 +16,8 @@
   max-width: 500px;
 }
 
-.clear-data-btn:hover {
+.clear-data-btn:hover,
+.download-btn:hover {
   background-color: hsl(158, 96%, 38%);
   cursor: pointer;
 }
