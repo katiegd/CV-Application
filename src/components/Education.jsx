@@ -1,3 +1,6 @@
+import editBtn from "src/assets/edit-3-svgrepo-com.svg";
+import deleteBtn from "src/assets/close-svgrepo-com.svg";
+
 export default function Education({
   handleChange,
   eduList,
@@ -78,20 +81,15 @@ export default function Education({
                     className="edit-btn"
                     onClick={(e) => editEdu(edu.id, e)}
                   >
-                    <img
-                      src="src/assets/edit-3-svgrepo-com.svg"
-                      alt="close"
-                      width="15px"
-                      height="15px"
-                    />
+                    <img src={editBtn} alt="edit" width="15px" height="15px" />
                   </button>
                   <button
                     className="remove-btn"
                     onClick={() => removeEdu(edu.id)}
                   >
                     <img
-                      src="src/assets/close-svgrepo-com.svg"
-                      alt="close"
+                      src={deleteBtn}
+                      alt="delete"
                       width="15px"
                       height="15px"
                     />

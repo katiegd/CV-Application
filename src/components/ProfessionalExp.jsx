@@ -1,4 +1,5 @@
-import { useState } from "react";
+import editBtn from "src/assets/edit-3-svgrepo-com.svg";
+import deleteBtn from "src/assets/close-svgrepo-com.svg";
 
 const profSummary = {
   name: "profSummary",
@@ -151,20 +152,15 @@ export default function ProfessionalExp({
                     className="edit-btn"
                     onClick={(e) => editProfEx(profEx.id, e)}
                   >
-                    <img
-                      src="public/edit-3-svgrepo-com.svg"
-                      alt="close"
-                      width="15px"
-                      height="15px"
-                    />
+                    <img src={editBtn} alt="edit" width="15px" height="15px" />
                   </button>
                   <button
                     className="remove-btn"
                     onClick={() => removeProfEx(profEx.id)}
                   >
                     <img
-                      src="public/close-svgrepo-com.svg"
-                      alt="close"
+                      src={deleteBtn}
+                      alt="delete"
                       width="15px"
                       height="15px"
                     />
@@ -178,11 +174,9 @@ export default function ProfessionalExp({
               {profEx.bulletPoints.length > 0 ? (
                 <div className="profEx-responsibilities">
                   {" "}
-                  <ul>
-                    {profEx.bulletPoints.map((bullet) => (
-                      <li key={bullet.id}>{bullet.text}</li>
-                    ))}
-                  </ul>
+                  {profEx.bulletPoints.map((bullet) => (
+                    <li key={bullet.id}>{bullet.text}</li>
+                  ))}
                 </div>
               ) : (
                 ""

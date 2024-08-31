@@ -78,6 +78,7 @@ export default function App() {
       ],
       startDate: "2018-09",
       endDate: "2024-10",
+      id: crypto.randomUUID(),
     },
     {
       jobTitle: "Full Stack Developer",
@@ -85,14 +86,17 @@ export default function App() {
       location: "Durham, NC",
       bulletPoints: [
         {
+          id: crypto.randomUUID(),
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec quam odio. Curabitur feugiat mi imperdiet congue vehicula. Mauris hendrerit augue augue. Maecenas efficitur lorem vitae nisi iaculis, ut scelerisque nisi aliquet. Mauris ullamcorper imperdiet efficitur.",
         },
         {
+          id: crypto.randomUUID(),
           text: " Curabitur feugiat mi imperdiet congue vehicula. Mauris hendrerit augue augue. Maecenas efficitur lorem vitae nisi iaculis, ut scelerisque nisi aliquet. Mauris ullamcorper imperdiet efficitur.",
         },
       ],
       startDate: "2008-09",
       endDate: "2017-10",
+      id: crypto.randomUUID(),
     },
   ]);
   const [bulletPoint, setBulletPoint] = useState("");
@@ -249,6 +253,7 @@ export default function App() {
       cityState: "Cambridge, MA",
       startDate: "2012-08",
       endDate: "2016-05",
+      id: crypto.randomUUID(),
     },
     {
       degree: "B.A. Mathematics",
@@ -256,6 +261,7 @@ export default function App() {
       cityState: "Chapel Hill, NC",
       startDate: "2008-08",
       endDate: "2012-05",
+      id: crypto.randomUUID(),
     },
   ]);
 
