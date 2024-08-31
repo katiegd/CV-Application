@@ -1,5 +1,5 @@
-import editBtn from "src/assets/edit-3-svgrepo-com.svg";
-import deleteBtn from "src/assets/close-svgrepo-com.svg";
+import editBtn from "/src/assets/edit-3-svgrepo-com.svg";
+import deleteBtn from "/src/assets/close-svgrepo-com.svg";
 
 const profSummary = {
   name: "profSummary",
