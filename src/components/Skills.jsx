@@ -1,3 +1,5 @@
+import deleteBtn from "/src/assets/close-svgrepo-com.svg";
+
 export default function Skills({
   skillsList,
   skillInput,
@@ -42,12 +44,7 @@ export default function Skills({
                 className="remove-btn"
                 onClick={(e) => removeSkill(skill.id, e)}
               >
-                <img
-                  src="src/assets/close-svgrepo-com.svg"
-                  alt="close"
-                  width="15px"
-                  height="15px"
-                />
+                <img src={deleteBtn} alt="close" width="15px" height="15px" />
               </button>
             </div>
           </div>
