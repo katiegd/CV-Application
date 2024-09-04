@@ -121,12 +121,7 @@ export default function ProfessionalExp({
                   className="remove-btn"
                   onClick={(e) => removeBullet(bullet.id, e)}
                 >
-                  <img
-                    src="src/assets/close-svgrepo-com.svg"
-                    alt="close"
-                    width="15px"
-                    height="15px"
-                  />
+                  <img src={deleteBtn} alt="close" width="15px" height="15px" />
                 </button>
               </div>
             ))}
